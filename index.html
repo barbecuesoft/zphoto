@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>zPhoto - Adjust and upload your photos</title>
+    
+    <!--  GOOGLE HOSTED LIBRARIES  -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/zphoto.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="css/vader/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css.1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css.1">
+    <link rel="stylesheet" href="bootstrap/css/font.min.css">
+    <link rel="stylesheet" href="bootstrap/css/colorz.css">
+    <link rel="stylesheet" href="bootstrap/css/colorz-responsive.css">
+  </head>
+
+  <body>
+
+    <!-- FACEBOOK STUFF -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+          appId      : '404601322989421',                    // App ID from the app dashboard
+          channelUrl : '//www.colorz.io/channel.html',       // Channel file for x-domain comms
+          status     : true,                                 // Check Facebook Login status
+          xfbml      : true                                  // Look for social plugins on the page
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- END FB -->
+    
+    <div id="page">
+      <div id="ads_top"></div>
+
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            
+            <a class="brand" href="./index.html">
+              <small>z</small>Photo
+            </a>    
+            
+            <div class="nav-collapse collapse">
+              <ul class="nav pull-right">
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    About
+                    <b class="caret"></b>
+                  </a>
+                  
+                  <ul class="dropdown-menu">
+                    <li><a href="./aboutus.html">About Us</a></li>
+                    <li><a href="./faq.html">FAQ</a></li>
+                  </ul>
+                </li>
+            
+                <li>
+                  <!-- like button -->
+                  <div class="fb-like" data-href="http://www.colorz.io/" 
+                       data-send="false" data-layout="button_count" 
+                       data-width="100" data-show-faces="false" 
+                       data-font="verdana" data-colorscheme="dark" 
+                       data-action="recommend"></div> 
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->  
+          </div> <!-- /container -->
+        </div> <!-- /navbar-inner -->
+      </div> <!-- navbar -->
+
+      <div class="subnavbar">
+        <div class="subnavbar-inner">
+          <div class="container">
+            <a class="btn-subnavbar collapsed" data-toggle="collapse" data-target=".subnav-collapse">
+              <i class="icon-reorder"></i>
+            </a>
+                <script type="text/javascript"><!--
+                  google_ad_client = "ca-pub-9759098288036220";
+                  /* Colorz io top */
+                  google_ad_slot = "4975709427";
+                  google_ad_width = 728;
+                  google_ad_height = 90;
+                  //-->
+                </script>
+                <script type="text/javascript"
+                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>
+
+            </div> <!-- /.subnav-collapse -->
+          </div> <!-- /container -->
+        </div> <!-- /subnavbar-inner -->
+      </div> <!-- /subnavbar -->
+
+      <div id='content' class='main'>
+        <div class='container'>
+
+
+          <div class='row'>
+            <div class='span12'>
+              <div class='widget'>
+                <div class='widget-header'> 
+                  <h3>Export</h3>
+                </div>
+                <div class='widget-content'>
+                  <div id='log'></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class='span8'>
+              <div class='widget'>
+                <div class='widget-content'>
+                  <div class='canvas-container'>
+                    <div class='canvas-container-label'>
+                      Drag an Image here <br>or<br>
+                      <input type='file' id='file-src'>
+                    </div>
+                    <div id='#original_image'>
+                    </div>
+                    <canvas id='canvas'></canvas>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class='span4'>
+              <div class='row'>
+                <div class='span4'>
+                  <div class='widget'>
+                    <div class='widget-header'>
+                      <h3>Exposure</h3>
+                    </div>
+                    <div class='widget-content'>
+                      <div class='slider-control'>
+                          Brightness
+	                        <div class="slider" id="brightness"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Contrast
+	                        <div class="slider" id="contrast"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Saturation
+	                        <div class="slider" id="saturation"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Temperature
+	                        <div class="slider" id="temperature"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Black point
+	                        <div class="slider" id="blackPoint"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Fill
+	                        <div class="slider" id="fill"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='span4'>
+                  <div class='widget'>
+                    <div class='widget-header'>
+                      <h3>Tone control</h3>
+                    </div>
+                    <div class='widget-content'>
+                      <div class='slider-control'>
+                          Split point
+	                        <div class="slider" id="splitPoint"></div>
+                      </div>
+                      <h4>Shadows</h4>
+                      <div class='slider-control'>
+                          HUE
+	                        <div class="slider" id="shadowsHue"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Saturation
+	                        <div class="slider" id="shadowsSaturation"></div>
+                      </div>
+                      <h4>Highlights</h4>
+                      <div class='slider-control'>
+                          HUE
+	                        <div class="slider" id="highlightsHue"></div>
+                      </div>
+                      <div class='slider-control'>
+                          Saturation
+	                        <div class="slider" id="highlightsSaturation"></div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+
+          </div>
+        </div>
+        <div id='ads_bottom'></div>
+      </div>
+
+      <div class="extra">
+        <div class="container">
+          <div class="row">
+            
+            <div class="span3">
+              <h4>About</h4>
+              <ul>
+                <li><a href="./aboutus.html">About Us</a></li>
+              </ul>
+            </div> <!-- /span3 -->
+
+            <div class="span3">
+              <h4>Info</h4>
+              <ul>
+                <li><a href="faq.html">Frequently Asked Questions</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+              </ul>
+            </div> <!-- /span3 -->
+
+          </div> <!-- /row -->
+        </div> <!-- /container -->
+      </div>
+
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <div id="footer-copyright" class="span6">
+              © 2012-13 zPhoto 
+            </div> <!-- /span6 -->
+            
+            <div id="footer-terms" class="span6">
+              Service by <a href="" target="_blank">Barbecue Lab</a>
+            </div> <!-- /.span6 -->
+          </div> <!-- /row -->
+        </div> <!-- /container -->
+      </div>
+    </div>
+
+  </body>
+
+</html>
